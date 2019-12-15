@@ -1,7 +1,6 @@
 package wyjax.techblog.repository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import wyjax.techblog.model.Member;
 
@@ -16,7 +15,10 @@ public class MemberRepository {
         em.persist(member);
     }
 
-    public Member findEmail(String email) {
-        return em.find(Member.class, email);
+    public Member findMember(String email) {
+        String jpql = "select m from Member m where m.email = :email";
+        return em.createQuery(jpql, Member.class)
+                .setParameter("email", email)
+                .getSingleResult();
     }
 }
