@@ -1,42 +1,37 @@
 package wyjax.techblog.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import wyjax.techblog.model.Member;
-import wyjax.techblog.repository.MemberRepository;
-import wyjax.techblog.service.MemberRole;
-
-import java.util.Arrays;
+import wyjax.techblog.service.MemberService;
 
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/user/join")
     public String createForm(Model model) {
-        return "members/createMemberForm";
+        return "members/joinForm";
     }
 
     @PostMapping("/user/join")
     public String create(Member member) {
-        MemberRole role = new MemberRole();
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        member.setPw(passwordEncoder.encode(member.getPw()));
-        role.setRoleName("BASIC");
-        member.setRoles(Arrays.asList(role));
-        memberRepository.save(member);
-
-        return "redirect:/";
+        return "redirect:/user/login";
     }
 
     @GetMapping("/user/login")
     public String loginForm(Model model) {
-        return "members/loginMemberForm";
+        return "members/loginForm";
+    }
+
+    @PostMapping("/user/login")
+    public String login(Model model) {
+        return "redirect:/";
     }
 }
