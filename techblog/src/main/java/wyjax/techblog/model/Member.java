@@ -1,41 +1,39 @@
 package wyjax.techblog.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import wyjax.techblog.service.MemberRole;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@ToString
-@Table(name = "member")
 public class Member {
 
     @Id
     @GeneratedValue
+    @Column(name = "member_id")
     private Long id;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 100, unique = true)
     private String email;
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private String pw;
+
+    // 사용자 권한
+    @Column(nullable = false)
+    private MemberRole roles;
 
     @CreationTimestamp
     private Date regdate;
 
     @UpdateTimestamp
-    private Date updatedate;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "uid")
-    private List<MemberRole> roles;
+    private Date update;
 }
