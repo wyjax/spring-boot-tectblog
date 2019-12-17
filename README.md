@@ -17,4 +17,6 @@ develope blog using spring boot, jpa, mysql
   - Spring Boot & MySQL 연동 이슈 해결
   - Bootstrap Signin & Signup Page 작업
   
- 
+2019-12-17
+  - Spring Security 수정(commit)
+  - LoginForm 수정
