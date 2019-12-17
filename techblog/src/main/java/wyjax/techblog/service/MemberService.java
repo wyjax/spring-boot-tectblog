@@ -1,6 +1,9 @@
 package wyjax.techblog.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wyjax.techblog.model.Member;
@@ -10,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     public void save(Member member) {
@@ -25,17 +28,25 @@ public class MemberService {
         return member.getId();
     }
 
-    public Member authenticate(String email, String password) throws Exception {
-        Member member = memberRepository.findEmailAndPassword(email, password);
-        return member;
-    }
-
     // Email 중복 확인
     private void validateDuplicateMember(Member member) {
         List<Member> members = memberRepository.findByEmail(member.getEmail());
 
         if (!members.isEmpty()) {
-            throw new IllegalStateException("Already Regist Email");
+            throw new IllegalStateException("Already Checked Email");
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member = null;
+        try {
+            member = memberRepository.findEmailAndPassword(email);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new UserDetailsImpl(member.getEmail(), member.getPw(), member.getRoles().toString());
     }
 }
