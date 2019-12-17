@@ -22,13 +22,18 @@ public class MemberRepository {
                 .getResultList();
     }
 
-    public Member findEmailAndPassword(String email, String password) {
-        return em.createQuery(
-                "select m " +
-                        "from Member  m " +
-                        "where m.email = :email and m.pw = :password", Member.class)
-                .setParameter("email", email)
-                .setParameter("password", password)
-                .getSingleResult();
+    public Member findEmailAndPassword(String email) throws Exception {
+        Member member = null;
+
+        try {
+            member = (Member) em.createQuery("select m from Member m where m.email = :email")
+                    .setParameter("email", email)
+                    .getSingleResult();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return member;
     }
 }
