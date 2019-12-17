@@ -1,6 +1,6 @@
 package wyjax.techblog.model;
 
-public enum  MemberRole {
+public enum MemberRole {
     ADMIN,
     BASIC;
 }

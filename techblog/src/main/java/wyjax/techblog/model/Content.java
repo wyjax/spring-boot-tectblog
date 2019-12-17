@@ -2,7 +2,6 @@ package wyjax.techblog.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,7 +12,8 @@ import java.time.LocalDateTime;
 @Table(name = "content")
 public class Content {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "content_id")
     private Long id;
 
