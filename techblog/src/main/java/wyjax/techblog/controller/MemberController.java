@@ -1,7 +1,7 @@
 package wyjax.techblog.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +26,10 @@ public class MemberController {
 
     @PostMapping("/user/join")
     public String create(MemberForm memberForm) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Member member = new Member();
         member.setEmail(memberForm.getEmail());
-        member.setPw(memberForm.getPassword());
+        member.setPw(passwordEncoder.encode(memberForm.getPassword()));
         member.setRoles(MemberRole.BASIC);
         member.setRegdate(LocalDateTime.now());
         memberService.join(member);
