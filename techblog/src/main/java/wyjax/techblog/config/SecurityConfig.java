@@ -40,8 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll();
         http.formLogin()
                 .loginPage("/user/login") // default
-                .defaultSuccessUrl("/sex")
-                .failureUrl("/sibal")
+                .defaultSuccessUrl("/")
+                .failureUrl("/user/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .permitAll();
