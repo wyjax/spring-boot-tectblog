@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <link th:href="@{../css/custom-login.css}" rel="stylesheet">
+    <link th:href="@{../css/freelancer.min.css}" rel="stylesheet">
+    <link th:href="@{../vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body id="page-top">
+
+<!-- Navigation -->
+<th:block th:include="fragments/nav"></th:block>
+
+<div class="masthead container">
+    <h2 class="mb-5">글 목록</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr class="text-center">
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>날짜</th>
+                <th>조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+    </table>
+    <div align="right" class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <ul class="pagination hover-square justify-content-center">
+                        <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                    <a href="/blog/new"><button class="btn btn-primary">글쓰기</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<th:block th:include="fragments/footer"></th:block>
+
+</body>
+</html>
