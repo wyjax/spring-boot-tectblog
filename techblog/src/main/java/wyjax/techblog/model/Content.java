@@ -18,6 +18,9 @@ public class Content {
     private Long id;
 
     @Column(nullable = false)
+    private String regid;
+
+    @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
