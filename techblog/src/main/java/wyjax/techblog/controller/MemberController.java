@@ -38,9 +38,7 @@ public class MemberController {
     }
 
     @GetMapping("/user/login")
-    public String loginForm(@ModelAttribute("loginForm") LoginForm loginForm, Model model) {
-
-
+    public String loginForm(@ModelAttribute("loginForm") LoginForm loginForm) {
         return "members/loginForm";
     }
 

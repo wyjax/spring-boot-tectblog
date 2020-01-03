@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class contentForm {
+public class ContentForm {
     private String title;
     private String content;
 }

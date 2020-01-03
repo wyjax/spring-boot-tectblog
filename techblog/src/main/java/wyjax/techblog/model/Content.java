@@ -2,6 +2,7 @@ package wyjax.techblog.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,16 +10,15 @@ import java.time.LocalDateTime;
 @Entity
 @Setter
 @Getter
-@Table(name = "content")
 public class Content {
 
     @Id
-    @GeneratedValue
-    @Column(name = "content_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "content_id", unique = true)
     private Long id;
 
     @Column(nullable = false)
-    private String regid;
+    private String uid;
 
     @Column(nullable = false)
     private String title;
@@ -26,7 +26,8 @@ public class Content {
     @Column(nullable = false)
     private String content;
 
-    private int viewcount;
+    @ColumnDefault("0")
+    private Integer viewcount;
 
     private LocalDateTime regdate;
 }

@@ -6,7 +6,8 @@ spring:
     password: wjdrl12
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+
 
 logging:
   level:

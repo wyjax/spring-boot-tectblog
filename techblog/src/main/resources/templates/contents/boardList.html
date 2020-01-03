@@ -8,53 +8,63 @@
 </head>
 
 <body id="page-top">
-
 <!-- Navigation -->
 <th:block th:include="fragments/nav"></th:block>
 
 <div class="masthead container">
     <h2 class="mb-5">글 목록</h2>
-    <table class="table table-hover">
+    <table class="table table-hover table-bordered">
         <thead>
-            <tr class="text-center">
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>날짜</th>
-                <th>조회수</th>
-            </tr>
+        <tr class="text-center">
+            <th style="width: 7%">번호</th>
+            <th style="width: 30%">제목</th>
+            <th style="width: 15%">작성자</th>
+            <th style="width: 15%">날짜</th>
+            <th style="width: 10%">조회수</th>
+        </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-            </tr>
+        <tr th:each="content : ${contentList}">
+            <td th:text="${content.id}" class="text-center"></td>
+            <td><a th:text="${content.title}" th:href="@{/blog/view/${content.id}|}"></a></td>
+            <td th:text="${content.uid}"></td>
+            <td th:text="${content.regdate} ? ${#temporals.format(content.regdate, 'yyyy-MM-dd HH:mm')} : ${content.regdate}" class="text-center"></td>
+            <td th:text="${content.viewcount}" class="text-center"></td>
+        </tr>
         </tbody>
     </table>
     <div align="right" class="container">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <ul class="pagination hover-square justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                    <a href="/blog/new"><button class="btn btn-primary">글쓰기</button></a>
+        <div align="right" class="container">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <ul class="pagination justify-content-center font-weight-bold">
+                            <li class="page-item" th:classappend="${contentList.number eq 0} ? 'disabled'">
+                                <a class="page-link"
+                                   th:href="@{${'/blog/board'}(page=${contentList.number - 1},size=${contentList.size})}"
+                                   aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item" th:classappend="${i eq contentList.number + 1} ? 'active'"
+                                th:each="i : ${#numbers.sequence( 1, contentList.totalPages, 1)}">
+                                <a class="page-link"
+                                   th:href="@{${'/blog/board'}(page=${i - 1}, size=${contentList.size})}"
+                                   th:text="${i}" ></a>
+                            </li>
+                            <li class="page-item"
+                                th:classappend="${contentList.number + 1 eq contentList.totalPages} ? 'disabled'">
+                                <a class="page-link"
+                                   th:href="@{${'/blog/board'}(page=${contentList.number + 1},size=${contentList.size})}"
+                                   aria-label="Next" title="Next Page" data-toggle="tooltip">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <a href="/blog/new">
+                            <button class="btn btn-primary">글쓰기</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
