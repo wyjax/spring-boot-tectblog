@@ -26,7 +26,7 @@
         <tbody>
         <tr th:each="content : ${contentList}">
             <td th:text="${content.id}" class="text-center"></td>
-            <td><a th:text="${content.title}" th:href="@{/blog/view/${content.id}|}"></a></td>
+            <td><a th:text="${content.title}" th:href="@{'/blog/board/' + ${content.getId()}}"></a></td>
             <td th:text="${content.uid}"></td>
             <td th:text="${content.regdate} ? ${#temporals.format(content.regdate, 'yyyy-MM-dd HH:mm')} : ${content.regdate}" class="text-center"></td>
             <td th:text="${content.viewcount}" class="text-center"></td>

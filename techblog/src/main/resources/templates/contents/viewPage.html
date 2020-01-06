@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <link th:href="@{../../custom-login.css}" rel="stylesheet">
+    <link th:href="@{../../css/freelancer.min.css}" rel="stylesheet">
+    <link th:href="@{../../css/github-markdown.css}" rel="stylesheet">
+    <link th:href="@{../../vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body id="page-top">
+<!-- Navigation -->
+<th:block th:include="fragments/nav"></th:block>
+
+<div class="masthead container px-5">
+    <div class="row mx-5 px-5 mb-2" style="font-weight: normal">
+        <h2 th:text="${content.getTitle()}"></h2>
+    </div>
+    <div class="row mx-5 px-5" style="font-size: small; color: gray">
+        <div class="col-xs-2">
+            <!-- <img class="thumb-crop" th:src="@{../img/sp_com.png}" width="50px" height="50px"> -->
+        </div>
+        <div class="col-xs-2 mr-3">
+            <a th:text="${content.getRegdate()} ? ${#temporals.format(content.getRegdate(), 'yyyy-MM-dd HH:mm')} : ${content.getRegdate()}"></a>
+        </div>
+        <div class="col-xs-2">
+            <!-- <img th:src="@{../img/sp_com.png}" width="50pxn" height="50px"> -->
+        </div>
+        <div class="col-xs-2">
+            <a th:text="${content.getViewcount()}"></a>
+        </div>
+        <div class="col text-right" style="color: black">
+            <a th:text="${content.getUid()}" th:href="@{${'user/info'}(uid=${content.getUid()})}"></a>
+        </div>
+    </div>
+    <hr>
+    <div class="row mx-5 px-5 pt-3">
+        <a th:text="${content.getContent()}"></a>
+    </div>
+</div>
+
+<!-- Footer -->
+<th:block th:include="fragments/footer"></th:block>
+</body>
+</html>
