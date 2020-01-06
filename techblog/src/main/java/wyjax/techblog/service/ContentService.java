@@ -29,7 +29,12 @@ public class ContentService {
         cnt.setContent(content);
         cnt.setUid(uid);
         cnt.setRegdate(LocalDateTime.now());
+        cnt.setViewcount(0);
         Content newcontent = contentRepository.save(cnt);
         return newcontent;
+    }
+
+    public Content view(Long id) {
+        return contentRepository.getOne(id);
     }
 }
