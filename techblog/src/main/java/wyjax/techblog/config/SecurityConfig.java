@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import wyjax.techblog.service.MemberService;
@@ -34,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/templates/**");
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -46,8 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .permitAll();
         http.logout()
-                .logoutUrl("/logout") // default
+                .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/user/login")
+                .invalidateHttpSession(true) // session 무효화
+                .deleteCookies("JSESSIONID")
                 .permitAll();
     }
 }
