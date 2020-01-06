@@ -18,16 +18,16 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3" href="/blog/board">Blog</a>
                 </li>
-                <li class="nav-item mx-0 mx-lg-1">
+                <li class="nav-item mx-0 mx-lg-1" th:if="!${#request.userPrincipal}">
                     <a class="nav-link py-3 px-0 px-lg-3" href="/user/login">Sign In</a>
                 </li>
-                <li class="nav-item mx-0 mx-lg-1">
+                <li class="nav-item mx-0 mx-lg-1" th:if="!${#request.userPrincipal}">
                     <a class="nav-link py-3 px-0 px-lg-3" href="/user/join">Sign Up</a>
                 </li>
-                <li class="nav-item mx-0 mx-lg-1">
+                <li class="nav-item mx-0 mx-lg-1" th:if="${#request.userPrincipal}">
                     <a class="nav-link py-3 px-0 px-lg-3" th:text="${#authentication.name} "></a>
                 </li>
-                <li class="nav-item mx-0 mx-lg-1" th:if="${#authentication.isAuthenticated()}">
+                <li class="nav-item mx-0 mx-lg-1" th:if="${#request.userPrincipal}">
                     <a class="nav-link py-3 px-0 px-lg-3" th:href="@{/user/logout}">Logout</a>
                 </li>
             </ul>
