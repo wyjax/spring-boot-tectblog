@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,8 +45,32 @@ public class ContentController {
     @GetMapping("blog/board/{id}")
     public String viewContent(@PathVariable("id") Long id, Model model) {
         Content cont = contentService.view(id);
-        model.addAttribute("content", cont);
 
-        return "contents/viewPage";
+        if (cont != null) {
+            model.addAttribute("content", cont);
+            return "contents/viewPage";
+        }
+
+        return "redirect:/blog/board";
+    }
+
+    @GetMapping("blog/delete/{id}")
+    public String delContent(@PathVariable Long id) {
+        contentService.delete(id);
+
+        return "redirect:/contents/boardList";
+    }
+
+    @GetMapping("blog/edit/{id}")
+    public String editContent(@PathVariable Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loginid = auth.getName();
+        String uid = contentService.view(id).getUid();
+
+        if (!loginid.equals(uid)) {
+            return "redirect:/blog/board";
+        }
+
+        return "contents/editPage";
     }
 }
