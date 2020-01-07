@@ -61,7 +61,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <a href="/blog/new">
+                        <a href="/blog/new" th:if="${#request.userPrincipal}">
                             <button class="btn btn-primary">글쓰기</button>
                         </a>
                     </div>
