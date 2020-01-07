@@ -6,6 +6,11 @@
     <link th:href="@{../../css/freelancer.min.css}" rel="stylesheet">
     <link th:href="@{../../css/github-markdown.css}" rel="stylesheet">
     <link th:href="@{../../vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <script>
+        function check_confirm() {
+            return confirm("삭제하시겠습니까?");
+        }
+    </script>
 </head>
 
 <body id="page-top">
@@ -14,16 +19,18 @@
 
 <div class="masthead container px-5">
     <div class="row mx-5 px-5 mb-2" style="font-weight: normal">
-        <h2 th:text="${content.getTitle()}"></h2>
+        <h3 th:text="${content.getTitle()}"></h3>
     </div>
     <div class="row mx-5 px-5" style="font-size: small; color: gray">
         <div class="col-xs-2">
+            <a>작성일&nbsp;&nbsp;</a>
             <!-- <img class="thumb-crop" th:src="@{../img/sp_com.png}" width="50px" height="50px"> -->
         </div>
         <div class="col-xs-2 mr-3">
             <a th:text="${content.getRegdate()} ? ${#temporals.format(content.getRegdate(), 'yyyy-MM-dd HH:mm')} : ${content.getRegdate()}"></a>
         </div>
         <div class="col-xs-2">
+            <a>조회수&nbsp;&nbsp;</a>
             <!-- <img th:src="@{../img/sp_com.png}" width="50pxn" height="50px"> -->
         </div>
         <div class="col-xs-2">
@@ -35,7 +42,13 @@
     </div>
     <hr>
     <div class="row mx-5 px-5 pt-3">
-        <a th:text="${content.getContent()}"></a>
+        <a th:utext="${content.getContent()}"></a>
+    </div>
+    <div class="row mt-4 mx-5 px-5 pt-3" th:if="${#request.userPrincipal.getName()} eq ${content.getUid()}">
+        <div class="col text-right">
+            <a class="mr-2" th:href="@{'/blog/edit/' + ${content.getId()}}"><button class="btn btn-primary">수정</button></a>
+            <a onclick="return check_confirm();" th:href="@{'/blog/delete/' + ${content.getId()}}"><button class="btn btn-danger">삭제</button></a>
+        </div>
     </div>
 </div>
 
