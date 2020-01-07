@@ -44,7 +44,8 @@
     <div class="row mx-5 px-5 pt-3">
         <a th:utext="${content.getContent()}"></a>
     </div>
-    <div class="row mt-4 mx-5 px-5 pt-3" th:if="${#request.userPrincipal.getName()} eq ${content.getUid()}">
+    <div class="row mt-4 mx-5 px-5 pt-3" th:if="${#authentication.getName() eq content.getUid()}">
+<!--    <div class="row mt-4 mx-5 px-5 pt-3" th:if="${(#request.getUserPrincipal() != null) and (${content.getUid()} eq #request.getUserPrincipal())}">-->
         <div class="col text-right">
             <a class="mr-2" th:href="@{'/blog/edit/' + ${content.getId()}}"><button class="btn btn-primary">수정</button></a>
             <a onclick="return check_confirm();" th:href="@{'/blog/delete/' + ${content.getId()}}"><button class="btn btn-danger">삭제</button></a>

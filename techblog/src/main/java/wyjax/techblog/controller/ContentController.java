@@ -56,21 +56,23 @@ public class ContentController {
 
     @GetMapping("blog/delete/{id}")
     public String delContent(@PathVariable Long id) {
-        contentService.delete(id);
+        if (contentService.userCheck(id)) {
+            contentService.delete(id);
+        }
 
         return "redirect:/contents/boardList";
     }
 
     @GetMapping("blog/edit/{id}")
-    public String editContent(@PathVariable Long id) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String loginid = auth.getName();
-        String uid = contentService.view(id).getUid();
-
-        if (!loginid.equals(uid)) {
-            return "redirect:/blog/board";
+    public String editContent(@PathVariable Long id, Model model) {
+        if (contentService.userCheck(id)) {
+            Content content = contentService.view(id);
+            ContentForm form = new ContentForm();
+            form.setTitle(content.getTitle());
+            form.setContent(content.getContent());
+            model.addAttribute("content", form);
+            return "contents/editPage";
         }
-
-        return "contents/editPage";
+        return "redirect:/blog/board";
     }
 }

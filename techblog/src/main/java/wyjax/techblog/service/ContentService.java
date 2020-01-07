@@ -5,13 +5,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wyjax.techblog.model.Content;
 import wyjax.techblog.repository.ContentRepository;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +48,16 @@ public class ContentService {
     public void delete(Long id) {
         Content content = contentRepository.getOne(id);
         content.setIsdelete('Y');
+    }
+
+    public Boolean userCheck(Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loginid = auth.getName();
+        String uid = view(id).getUid();
+
+        if (!loginid.equals(uid)) {
+            return false;
+        }
+        return true;
     }
 }
