@@ -38,9 +38,15 @@ public class MemberController {
         member.setPw(passwordEncoder.encode(memberForm.getPassword()));
         member.setRoles(MemberRole.BASIC);
         member.setRegdate(LocalDateTime.now());
-        memberService.join(member);
 
-        return "redirect:/";
+        try {
+            memberService.join(member);
+        }
+        catch (Exception e) {
+            return "redirect:/user/join";
+        }
+
+        return "redirect:/user/login";
     }
 
     @GetMapping("/user/login")
