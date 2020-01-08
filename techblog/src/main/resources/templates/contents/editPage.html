@@ -2,10 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/header"></th:block>
-    <link th:href="@{../css/custom-login.css}" rel="stylesheet">
-    <link th:href="@{../css/freelancer.min.css}" rel="stylesheet">
-    <link th:href="@{../vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
-    <script th:src="@{../ckeditor/ckeditor.js}"></script>
+    <link th:href="@{../../css/custom-login.css}" rel="stylesheet">
+    <link th:href="@{../../css/freelancer.min.css}" rel="stylesheet">
+    <link th:href="@{../../vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{../../ckeditor/ckeditor.js}"></script>
 </head>
 
 <body id="page-top">
@@ -13,7 +13,7 @@
 <th:block th:include="fragments/nav"></th:block>
 
 <div class="masthead container">
-    <form method="post" th:object="${content}" th:action="@{/blog/new}" autocomplete="off">
+    <form method="post" th:object="${content}" th:action="@{'/blog/edit/' + ${id}}" autocomplete="off">
         <div class="form-group mb-3">
             <label th:for="title">제목</label>
             <input type="text" class="form-control" th:field="*{title}" placeholder="제목을 입력해 주세요">
@@ -34,7 +34,7 @@
             </script>
         </div>
         <div class="form-group" align="right">
-            <input type="submit" value="저장" class="btn btn-primary">
+            <input type="submit" value="수정" class="btn btn-primary">
         </div>
     </form>
 </div>

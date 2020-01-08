@@ -13,7 +13,7 @@
 <th:block th:include="fragments/nav"></th:block>
 
 <div class="masthead container">
-    <form method="post" th:object="${contentForm}" th:action="@{/blog/new}" autocomplete="off">
+    <form method="post" th:object="${content}" th:action="@{/blog/new}" autocomplete="off">
         <div class="form-group mb-3">
             <label th:for="title">제목</label>
             <input type="text" class="form-control" th:field="*{title}" placeholder="제목을 입력해 주세요">
@@ -29,7 +29,6 @@
                     filebrowserUploadUrl : "/admin/goods/ckUpload",
                     height : 500
                 };
-
                 CKEDITOR.replace("editer", ckeditor_config);
             </script>
         </div>

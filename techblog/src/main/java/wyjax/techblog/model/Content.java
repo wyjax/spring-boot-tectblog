@@ -1,6 +1,7 @@
 package wyjax.techblog.model;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -11,7 +12,6 @@ import java.time.LocalDateTime;
 @Entity
 @Setter
 @Getter
-@DynamicInsert
 public class Content {
     /*
         dafault 값을 주는 방법
@@ -33,10 +33,8 @@ public class Content {
     @Column(nullable = false)
     private String content;
 
-    @ColumnDefault("'N'")
     private char isdelete;
 
-    @ColumnDefault("0")
     private Integer viewcount;
 
     private LocalDateTime regdate;

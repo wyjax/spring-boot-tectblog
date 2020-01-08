@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import wyjax.techblog.model.Content;
 import wyjax.techblog.repository.ContentRepository;
 
-import java.time.LocalDateTime;
-
 @Service
 @RequiredArgsConstructor
 public class ContentService {
@@ -28,18 +26,13 @@ public class ContentService {
     }
 
     @Transactional
-    public Content save(String title, String content, String uid) {
-        Content cnt = new Content();
-        cnt.setTitle(title);
-        cnt.setContent(content);
-        cnt.setUid(uid);
-        cnt.setRegdate(LocalDateTime.now());
-        cnt.setViewcount(0);
-        cnt.setIsdelete('N');
-        Content newcontent = contentRepository.save(cnt);
+    public Content save(Content content) {
+        Content newcontent = contentRepository.save(content);
+
         return newcontent;
     }
 
+    @Transactional
     public Content view(Long id) {
         return contentRepository.findByIdAndAndIsdelete(id, 'N');
     }
