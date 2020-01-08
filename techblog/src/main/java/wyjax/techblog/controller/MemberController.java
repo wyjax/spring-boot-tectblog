@@ -8,10 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import wyjax.techblog.model.Member;
 import wyjax.techblog.model.MemberRole;
 import wyjax.techblog.service.MemberService;
@@ -71,9 +68,9 @@ public class MemberController {
         return "redirect:/user/login";
     }
 
-    @GetMapping("user/mypage")
-    public String mypage(@RequestParam("uname") String name, Model model) {
-        Member member = memberService.getMember(name);
+    @GetMapping("/user/mypage/{email}")
+    public String mypage(@PathVariable("email") String email, Model model) {
+        Member member = memberService.getMember(email);
 
         if (member.getId() == null) {
             return "redirect:/";

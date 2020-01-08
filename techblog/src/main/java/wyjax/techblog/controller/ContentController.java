@@ -60,6 +60,7 @@ public class ContentController {
         Content cont = contentService.view(id);
 
         if (cont != null) {
+            contentService.countUp(id);
             model.addAttribute("content", cont);
             return "contents/viewPage";
         }

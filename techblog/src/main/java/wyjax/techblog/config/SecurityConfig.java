@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import wyjax.techblog.service.MemberService;
@@ -53,5 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true) // session 무효화
                 .deleteCookies("JSESSIONID")
                 .permitAll();
+        http.rememberMe()
+                .key("wyjaxsecret")
+                .rememberMeParameter("remember-me")
+                .tokenValiditySeconds(604800);
     }
 }

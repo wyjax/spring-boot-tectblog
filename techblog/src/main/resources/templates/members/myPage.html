@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:include="fragments/header"></th:block>
+    <link th:href="@{../../vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{../../css/freelancer.min.css}" rel="stylesheet">
 </head>
-<body>
+
+<body id="page-top">
+
+<!-- Navigation -->
+<th:block th:include="fragments/nav"></th:block>
+
+<!-- Footer -->
+<th:block th:include="fragments/footer"></th:block>
 
 </body>
 </html>

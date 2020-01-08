@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import wyjax.techblog.model.Member;
 import wyjax.techblog.repository.MemberRepository;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
@@ -28,17 +26,16 @@ public class MemberService implements UserDetailsService {
         return member.getId();
     }
 
-    // Email 중복 확인
     private void validateDuplicateMember(Member member) {
-        List<Member> members = memberRepository.findByEmail(member.getEmail());
+        Member members = memberRepository.findByEmail(member.getEmail());
 
-        if (!members.isEmpty()) {
+        if (members != null) {
             throw new IllegalStateException("Already Checked Email");
         }
     }
 
-    public Member getMember(String uname) {
-       return (Member) memberRepository.findByEmail(uname);
+    public Member getMember(String email) {
+        return memberRepository.findByEmail(email);
     }
 
     @Override

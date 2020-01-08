@@ -43,6 +43,13 @@ public class ContentService {
         content.setIsdelete('Y');
     }
 
+    @Transactional
+    public void countUp(Long id) {
+        Content content = contentRepository.getOne(id);
+        content.setViewcount(content.getViewcount() + 1);
+        contentRepository.save(content);
+    }
+
     public Boolean userCheck(Long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loginid = auth.getName();
