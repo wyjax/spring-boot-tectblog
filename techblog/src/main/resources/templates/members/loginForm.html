@@ -123,6 +123,9 @@
                     <button type="submit" class="btn btn-primary btn-lg">Sign In</button>
                 </div>
             </div>
+            <p th:each="url : ${urls}">
+                <a th:text="${url.key}" th:href="${url.value}">Client</a>
+            </p>
         </form>
         <p class="text-center small">Don't have an account? <a class="text-primary" href="join">Sign up here!</a></p>
     </div>

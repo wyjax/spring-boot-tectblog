@@ -34,11 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/templates/**");
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/img/**").permitAll();
+                .antMatchers("/css/**", "/js/**", "/img/**")
+                .permitAll();
         http.formLogin()
                 .loginPage("/user/login") // default
                 .defaultSuccessUrl("/")
@@ -46,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .permitAll();
+        http.oauth2Login()
+                .defaultSuccessUrl("/loginSuccess");
         http.logout()
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/user/login")
@@ -55,6 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.rememberMe()
                 .key("wyjaxsecret")
                 .rememberMeParameter("remember-me")
-                .tokenValiditySeconds(604800);
+                .tokenValiditySeconds(86400);
     }
 }

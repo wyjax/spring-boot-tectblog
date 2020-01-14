@@ -30,3 +30,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### yml 설정파일
+src/main/resources/application.yml
